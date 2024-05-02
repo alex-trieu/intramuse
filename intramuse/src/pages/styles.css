@@ -1,0 +1,49 @@
+.New_Post {
+    width: 600px;
+    height: 400px;
+    display: flex;
+    margin: auto;
+    margin-top: 50px;
+    padding: 28px;
+    border-radius: 50px;
+    box-shadow: 2px 4px 4px 2px rgba(255, 255, 255, 0.5);
+    background-color: #d9d9d9;
+    animation: fade 1s;
+    flex-direction: column;
+  }
+
+  .Rectangle {
+    width: 1300px;
+    height: 400px;
+    display: flex;
+    margin: auto;
+    margin-top: 50px;
+    padding: 28px;
+    border-radius: 50px;
+    box-shadow: 2px 4px 4px 2px rgba(255, 255, 255, 0.5);
+    background-color: #d9d9d9;
+    animation: fade 1s;
+  }
+
+  .searchbar {
+    display: flex;
+    height: 30px;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 20px;
+  }
+
+  .input {
+    display: flex;
+    height: 250px;
+    border-radius: 10px;
+    padding: 10px;
+    margin-top: 30px;
+    font-size: 20px;
+    vertical-align: top;
+  }
+
+  @keyframes fade {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+  }

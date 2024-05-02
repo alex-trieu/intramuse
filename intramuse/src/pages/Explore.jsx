@@ -1,16 +1,11 @@
 import React from "react";
 const Explore = () => {
     return (
-        <div
-            style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "100px",
-            }}
+        <form 
+            class="Rectangle"
         >
             <h1>Posts pop up here</h1>
-        </div>
+        </form>
     );
 };
 
