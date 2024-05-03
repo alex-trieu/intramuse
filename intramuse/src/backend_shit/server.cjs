@@ -9,7 +9,6 @@ const path = require('path');
 // Create a Mongoose schema for the Post model
 const postSchema = new mongoose.Schema({
     track: String,
-    name: String,
     artist: String,
     albumCover: String,
     caption: String
@@ -50,7 +49,6 @@ app.post('/posts', async (req, res) => {
         // Create a new Post document
         const post = new Post({
             track: req.body.track,
-            name: req.body.name,
             artist: req.body.artist,
             albumCover: imageName,
             caption: req.body.caption
@@ -77,4 +75,19 @@ async function getImageFromUrl(url) {
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+// Routes
+// Get all posts
+app.get('/posts', async (req, res) => {
+    try {
+        // Fetch all posts from the database
+        const posts = await Post.find();
+        
+        // Send the posts as JSON response
+        res.status(200).json(posts);
+    } catch (err) {
+        console.error('Error fetching posts', err);
+        res.status(500).json({ error: 'Failed to fetch posts' });
+    }
 });
