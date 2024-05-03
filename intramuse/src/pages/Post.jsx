@@ -9,6 +9,8 @@ const CLIENT_SECRET = "e74bf7f445eb4c3fb1f25a81a54fbf2d";
 const Post = () => {
     const [searchInput, setSearchInput] = useState("");
     const [accessToken, setAccessToken] = useState("");
+    const [searchedTracks, setSearchedTracks] = useState([]);
+    const [selectedTrack, setSelectedTrack] = useState([]);
 
     useEffect(() => {
         var authParameters = {
@@ -38,36 +40,44 @@ const Post = () => {
             .then(data => {
                 const track = [];
                 for (let i = 0; i < 5; i++) {
-                    track.push([data.tracks.items[i].album.images[0], data.tracks.items[i].name, data.tracks.items[i].artists[0].name])
+                    track.push([data.tracks.items[i].album.images[0]['url'], data.tracks.items[i].name, data.tracks.items[i].artists[0].name])
                 }
-                console.log(track)
-                return track
+                setSearchedTracks(track)
             })
     }
-
+    console.log(searchedTracks)
     return (
-        <div className="New_Post">
-            <input placeholder="search for songs here" class="searchbar" onKeyUp={event => {
-
-                if (searchInput != '') {
+        <div>
+            <div className="New_Post">
+                <div>
+                    <input placeholder="search for songs here" class="searchbar" onKeyUp={event => {
+                    setSearchInput(event.target.value)
+                        }
+                    }
+                >
+                </input>
+                <button onClick={event => {
                     search()
-                }
-                setSearchInput(event.target.value)
-                }
-            }
-            onChange={event => {
-                setSearchInput(event.target.value)
-                console.log(searchInput)
-                if (searchInput != '') {
-                    search()
-                }
-                }
-            }
-            >
-            </input>
+            }}> search for song </button>
+            <h1>
+                {searchedTracks.map((tracking, i) => {
+                    return (
+                        <div className = 'searchresults' onClick={event => {
+                            console.log(tracking)
+                            setSelectedTrack(tracking)
+                        }}>
+                            <img src={tracking[0]} height={'25px'}></img>
+                            <h5>{tracking[1]}, {tracking[2]}</h5>
+                        </div>
+                    )
+                })}
+            </h1>
+            </div>
             <input className="input" placeholder="enter a caption!" ></input>
-
-            <button> yo </button>
+            <button> post song! </button>
+            
+            </div>
+            
         </div>
     );
 };
