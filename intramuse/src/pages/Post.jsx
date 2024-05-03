@@ -57,6 +57,8 @@ const Post = () => {
       });
   }
 
+
+
   async function handlePostSong() {
     if (!selectedTrack) {
       console.log("Choose a song first!");
@@ -66,8 +68,7 @@ const Post = () => {
     try {
       await axios.post("/posts", {
         track: selectedTrack[1],
-        name: selectedTrack[2],
-        artist: selectedTrack[3],
+        artist: selectedTrack[2],
         albumCover: selectedTrack[0],
         caption: caption
       });

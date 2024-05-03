@@ -9,7 +9,6 @@ import {
 import Post from "./pages/Post";
 import Explore from "./pages/Explore";
 
-
 function App() {
     return (
         <div>
