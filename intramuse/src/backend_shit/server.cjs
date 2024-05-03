@@ -5,20 +5,31 @@ const axios = require('axios');
 const sharp = require('sharp');
 const fs = require('fs').promises;
 const path = require('path');
-const Post = require('./models/post.cjs');
 
+// Create a Mongoose schema for the Post model
+const postSchema = new mongoose.Schema({
+    track: String,
+    name: String,
+    artist: String,
+    albumCover: String,
+    caption: String
+});
+
+// Create a Mongoose model for the Post schema
+const Post = mongoose.model('Post', postSchema);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/social-media-app', {
+// Connect to MongoDB Atlas cluster
+const uri = "mongodb+srv://intramuse:intramuse@postcluster.wlpvbp5.mongodb.net/<dbname>?retryWrites=true&w=majority&appName=postCluster";
+mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
-    console.log('Connected to MongoDB');
+    console.log('Connected to MongoDB Atlas');
 }).catch(err => {
-    console.error('Error connecting to MongoDB', err);
+    console.error('Error connecting to MongoDB Atlas:', err);
 });
 
 // Middleware
@@ -36,7 +47,7 @@ app.post('/posts', async (req, res) => {
         const imagePath = path.join(__dirname, 'uploads', imageName);
         await fs.writeFile(imagePath, imageBuffer);
 
-        // Save post to MongoDB
+        // Create a new Post document
         const post = new Post({
             track: req.body.track,
             name: req.body.name,
@@ -44,6 +55,8 @@ app.post('/posts', async (req, res) => {
             albumCover: imageName,
             caption: req.body.caption
         });
+
+        // Save the post to the database
         await post.save();
 
         res.status(201).json({ message: 'Post created successfully' });
