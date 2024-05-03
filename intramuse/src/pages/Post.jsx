@@ -92,7 +92,7 @@ const Post = () => {
           <button
             onClick={(event) => {
               search();
-            }}
+            }} 
           >
             search for song
           </button>
