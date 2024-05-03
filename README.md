@@ -1,1 +1,4 @@
 # intramuse
+
+ID: 5283912f91284542851ecc680c205c6b
+SECRET: e74bf7f445eb4c3fb1f25a81a54fbf2d
