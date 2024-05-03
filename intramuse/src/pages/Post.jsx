@@ -11,6 +11,7 @@ const Post = () => {
     const [accessToken, setAccessToken] = useState("");
     const [searchedTracks, setSearchedTracks] = useState([]);
     const [selectedTrack, setSelectedTrack] = useState([]);
+    const [caption, setCaption] = useState("");
 
     useEffect(() => {
         var authParameters = {
@@ -63,8 +64,8 @@ const Post = () => {
                 {searchedTracks.map((tracking, i) => {
                     return (
                         <div className = 'searchresults' onClick={event => {
-                            console.log(tracking)
                             setSelectedTrack(tracking)
+                            console.log(selectedTrack)
                         }}>
                             <img src={tracking[0]} height={'25px'}></img>
                             <h5>{tracking[1]}, {tracking[2]}</h5>
@@ -73,8 +74,19 @@ const Post = () => {
                 })}
             </h1>
             </div>
-            <input className="input" placeholder="enter a caption!" ></input>
-            <button> post song! </button>
+            <input className="input" placeholder="enter a caption!" onKeyUp={event => {
+                    setCaption(event.target.value)
+                        }
+                    }>
+
+                </input>
+            <button onClick={event => {
+                if (selectedTrack != []){
+                    console.log(caption)
+                } else {
+                    console.log('choose a song first!')
+                }
+            }}> post song! </button>
             
             </div>
             
